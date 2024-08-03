@@ -1,8 +1,0 @@
-{
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.project.referencedLibraries": [
-        "lib/*.jar"
-    ],
-    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
-    
-}
