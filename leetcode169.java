@@ -57,8 +57,28 @@ public class leetcode169 {
         return candidate;
     }
 
+    // ------------------------ actual answer i like -------------------------
+
+    public int majorityElement_2(int[] nums) {
+        int n = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int i = 0; i < n; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+        
+        n = n / 2;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > n) {
+                return entry.getKey();
+            }
+        }
+        
+        return 0;
+    }
+
     public static void main(String[] args) {
-        int[] nums = {3,2,3};
+        int[] nums = {3,2,3,2,2};
         System.out.println(majorityElement(nums));
     }
 }
