@@ -1,26 +1,32 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
 public class leetcode105 {
 
-    public static TreeNode buildTree(int[] preorder, int[] inorder) {
-        return helper(preorder, inorder, new int[]{0}, new int[]{0}, Integer.MIN_VALUE);
-    }
-
-    public static TreeNode helper(int[] preorder, int[] inorder, int[] p_index, int[] i_index, int stop) {
-        if (p_index[0] >= preorder.length) {
-            return null;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();
+        
+        for(int i = 0; i < inorder.length; i++) {
+            inMap.put(inorder[i], i);
         }
-
-        if (inorder[i_index[0]] == stop) {
-            i_index[0]++;
-            return null;
-        }
-
-        TreeNode node = new TreeNode(preorder[p_index[0]]);
-        p_index[0]++;
-        node.left = helper(preorder, inorder, p_index, i_index, node.val);
-        node.right = helper(preorder, inorder, p_index, i_index, stop);
-        return node;
+    
+        TreeNode root = buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
+        return root;
     }
-
+    
+    public TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> inMap) {
+        if(preStart > preEnd || inStart > inEnd) return null;
+        
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int inRoot = inMap.get(root.val);
+        int numsLeft = inRoot - inStart;
+        
+        root.left = buildTree(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1, inMap);
+        root.right = buildTree(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inMap);
+        
+        return root;
+    }
     public static void main(String[] args) {
 
     }
