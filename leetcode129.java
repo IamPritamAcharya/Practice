@@ -20,6 +20,8 @@ public class leetcode129 {
         return helper(root.left, currSum) + helper(root.right, currSum);
     }
 
+    
+
     public static void main(String[] args) {
         TreeNode node = new TreeNode(1);
         node.left = new TreeNode(2);
